@@ -1,6 +1,7 @@
 - hosts: flask_api_backend
   vars_files:
     - "./vars/default_variables.yml"
+    - "./vars/app_config.yml"
   remote_user: "{{ default_remote_user }}"
   # become: true
 
@@ -67,15 +68,14 @@
         repo: "{{ flask_api_repo }}"
         dest: "{{ flask_remote_path }}"
         key_file: "~/.ssh/github"
-        accept_newhostkey: yes
         clone: yes 
 
     - name: Copy env variables
       template:
-      src: "templates/.env.j2"
-      dest: "{{ flask_remote_path }}/.env"
-      force: yes
-      mode: "755"
+        src: "templates/env.j2"
+        dest: "{{ flask_remote_path }}/.env"
+        force: yes
+        mode: "755"
 
     - name: Tear down existing services
       community.docker.docker_compose:
