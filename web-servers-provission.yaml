@@ -1,6 +1,6 @@
 - hosts: flask_api_backend
   vars_files:
-    - "./vars/vault.yml"
+    - "./vars/default_variables.yml"
   remote_user: "{{ default_remote_user }}"
   # become: true
 
@@ -55,10 +55,6 @@
         groups: docker
         append: yes
 
-    - name: Reconnet to SSH
-      meta:
-        reset_connection
-
     - name: Upload SSH key
       copy:
         src: "{{ git_deploy_key_path }}"
@@ -75,11 +71,11 @@
         clone: yes 
 
     - name: Copy env variables
-      copy:
-        src: ".env"
-        dest: "{{ flask_remote_path }}/.env"
-        force: yes
-        mode: "755"
+      template:
+      src: "templates/.env.j2"
+      dest: "{{ flask_remote_path }}/.env"
+      force: yes
+      mode: "755"
 
     - name: Tear down existing services
       community.docker.docker_compose:
