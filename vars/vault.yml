@@ -1,0 +1,4 @@
+default_remote_user: "ubuntu"
+flask_api_repo: "git@github.com:arturmkr/flask-api.git"
+git_deploy_key_path: "/home/parallels/.ssh/deploy_key"
+flask_remote_path: "~/flask-api-backend"
