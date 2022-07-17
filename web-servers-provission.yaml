@@ -58,15 +58,15 @@
 
     - name: Upload private SSH key
       copy:
-        src: "/home/parallels/.ssh/id_ed25519"
-        dest: "~/.ssh/id_ed25519"
+        src: "{{ git_deploy_key_path }}"
+        dest: "~/.ssh/github"
         mode: "0600"
         force: yes
 
     - name: Upload public SSH key
       copy:
-        src: "/home/parallels/.ssh/id_ed25519.pub"
-        dest: "~/.ssh/id_ed25519.pub"
+        src: "{{ git_deploy_key_path }}.pub"
+        dest: "~/.ssh/github.pub"
         mode: "0600"
         force: yes    
 
