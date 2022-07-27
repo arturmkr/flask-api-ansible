@@ -1,4 +1,4 @@
-- hosts: flask_api_backend
+- hosts: back_end_servers
   vars_files:
     - "./vars/default_variables.yml"
     - "./vars/app_config.yml"
